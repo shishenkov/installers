@@ -53,13 +53,14 @@ BITS=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
 if [ -f /etc/centos-release ]; then
   OS="CentOs"
   VER=$(cat /etc/centos-release | sed 's/^.*release //;s/ (Fin.*$//')
+  VER_NUM = VER + 0
 else
   OS=$(uname -s)
   VER=$(uname -r)
 fi
 echo "Detected : $OS  $VER  $BITS"
 #warning the last version of centos and 6.x
-if [ "$OS" = "CentOs" ] && [ "$VER" = "6.0" ] || [ "$VER" = "6.1" ] || [ "$VER" = "6.2" ] || [ "$VER" = "6.3" ] || [ "$VER" = "6.4" ] || [ "$VER" = "6.5" ] ||[ "$VER" = "6.6" ] ||[ "$VER" = "6.7" ] ||[ "$VER" = "6.8" ]||[ "$VER" = "6.9" ]   ; then
+if [ "$OS" = "CentOs" ] && VER_NUM > 5.999 && VER_NUM < 7; then
   echo "Ok."
 else
   echo "Sorry, this installer only supports the installation of ZPanel on CentOS 6.x."
